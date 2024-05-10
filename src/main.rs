@@ -157,3 +157,32 @@ enum Direction {
     Left,
     Right,
 }
+
+fn main() {
+    let mut game = Game::new();
+    loop {
+        println!("Score: {}", game.score);
+        for row in 0..GRID_SIZE {
+            for col in 0..GRID_SIZE {
+                print!("{} ", game.grid[row][col]);
+            }
+            println!();
+        }
+        print!("Enter direction (w/a/s/d): ");
+        std::io::stdout().flush().unwrap();
+        let mut input = String::new();
+        std::io::stdin().read_line(&mut input).unwrap();
+        let direction = match input.trim() {
+            "w" => Direction::Up,
+            "a" => Direction::Left,
+            "s" => Direction::Down,
+            "d" => Direction::Right,
+            _ => continue,
+        };
+        game.move_tiles(direction);
+        if game.is_game_over() {
+            println!("Game over! Final score: {}", game.score);
+            break;
+        }
+    }
+}
