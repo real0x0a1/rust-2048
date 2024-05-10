@@ -129,4 +129,24 @@ impl Game {
             self.add_tile();
         }
     }
+
+    fn is_game_over(&self) -> bool {
+        for row in 0..GRID_SIZE {
+            for col in 0..GRID_SIZE {
+                if self.grid[row][col] == WINNING_TILE {
+                    return true;
+                }
+                if self.grid[row][col] == 0 {
+                    return false;
+                }
+                if col < GRID_SIZE - 1 && self.grid[row][col] == self.grid[row][col + 1] {
+                    return false;
+                }
+                if row < GRID_SIZE - 1 && self.grid[row][col] == self.grid[row + 1][col] {
+                    return false;
+                }
+            }
+        }
+        true
+    }
 }
