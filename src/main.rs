@@ -80,6 +80,28 @@ impl Game {
                     moved = true;
                 }
             }
+            Direction::Left => {
+                for row in 0..GRID_SIZE {
+                    let mut stack = VecDeque::new();
+                    for col in 0..GRID_SIZE {
+                        if self.grid[row][col]!= 0 {
+                            stack.push_back(self.grid[row][col]);
+                            self.grid[row][col] = 0;
+                        }
+                    }
+                    let mut new_col = 0;
+                    while let Some(tile) = stack.pop_front() {
+                        if new_col > 0 && self.grid[row][new_col - 1] == tile {
+                            self.grid[row][new_col - 1] *= 2;
+                            self.score += tile;
+                        } else {
+                            self.grid[row][new_col] = tile;
+                            new_col += 1;
+                        }
+                    }
+                    moved = true;
+                }
+            }
         }
     }
 }
