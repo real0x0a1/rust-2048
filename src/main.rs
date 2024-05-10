@@ -32,4 +32,8 @@ impl Game {
         }
         self.grid[row][col] = 2;
     }
+
+    fn move_tiles(&mut self, direction: Direction) {
+        let mut moved = false;
+    }
 }
