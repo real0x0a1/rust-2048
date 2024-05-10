@@ -35,5 +35,29 @@ impl Game {
 
     fn move_tiles(&mut self, direction: Direction) {
         let mut moved = false;
+        match direction {
+            Direction::Up => {
+                for col in 0..GRID_SIZE {
+                    let mut stack = VecDeque::new();
+                    for row in 0..GRID_SIZE {
+                        if self.grid[row][col]!= 0 {
+                            stack.push_back(self.grid[row][col]);
+                            self.grid[row][col] = 0;
+                        }
+                    }
+                    let mut new_row = 0;
+                    while let Some(tile) = stack.pop_front() {
+                        if new_row > 0 && self.grid[new_row - 1][col] == tile {
+                            self.grid[new_row - 1][col] *= 2;
+                            self.score += tile;
+                        } else {
+                            self.grid[new_row][col] = tile;
+                            new_row += 1;
+                        }
+                    }
+                    moved = true;
+                }
+            }
+        }
     }
 }
