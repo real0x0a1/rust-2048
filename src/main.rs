@@ -11,3 +11,12 @@ struct Game {
     score: u32,
 }
 
+impl Game {
+    fn new() -> Game {
+        let mut game = Game {
+            grid: [[0; GRID_SIZE]; GRID_SIZE],
+            score: 0,
+        };
+        game
+    }
+}
