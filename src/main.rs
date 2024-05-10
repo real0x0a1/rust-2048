@@ -150,3 +150,10 @@ impl Game {
         true
     }
 }
+
+enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+}
